@@ -1,0 +1,529 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Information and Admissions</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f6fc;
+            color: #263238;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background-color: #12376a;
+            color: white;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        header h1 {
+            font-size: 26px;
+        }
+
+        /* Navigation bar */
+        nav {
+            background-color: #09264c;
+            padding: 14px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 12px;
+            font-size: 15px;
+            display: inline-block;
+            padding: 5px 0;
+        }
+
+        nav a:hover {
+            color: #ffd54f;
+        }
+
+        /* Banner */
+        .banner {
+            min-height: 380px;
+            background:
+                linear-gradient(rgba(5, 30, 65, 0.7),
+                rgba(5, 30, 65, 0.7)),
+                url("https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1600&q=80");
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .banner h2 {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .banner p {
+            font-size: 18px;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #ffca28;
+            color: #12376a;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background-color: white;
+        }
+
+        /* General sections */
+        section {
+            padding: 50px 6%;
+            scroll-margin-top: 65px;
+        }
+
+        .section-title {
+            text-align: center;
+            color: #12376a;
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .section-intro {
+            text-align: center;
+            margin: 0 auto 30px;
+            max-width: 750px;
+        }
+
+        /* Responsive information cards */
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 22px;
+            margin-top: 25px;
+        }
+
+        .card {
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            color: #16477f;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            margin-bottom: 8px;
+        }
+
+        .card ul {
+            padding-left: 20px;
+        }
+
+        .icon {
+            font-size: 35px;
+            margin-bottom: 10px;
+        }
+
+        /* Alternate section background */
+        .light-section {
+            background-color: #e4edf8;
+        }
+
+        /* College statistics */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .stat-box {
+            background-color: #12376a;
+            color: white;
+            padding: 25px 10px;
+            border-radius: 8px;
+        }
+
+        .stat-box h3 {
+            font-size: 28px;
+            color: #ffca28;
+        }
+
+        /* Faculty photos */
+        .faculty-img {
+            width: 95px;
+            height: 95px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 12px;
+        }
+
+        /* Admissions steps */
+        .step {
+            border-left: 4px solid #16477f;
+        }
+
+        /* Contact section */
+        .contact-info {
+            max-width: 700px;
+            margin: auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-info p {
+            margin: 12px 0;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #09264c;
+            color: white;
+            text-align: center;
+            padding: 22px;
+        }
+
+        footer a {
+            color: #ffca28;
+            text-decoration: none;
+        }
+
+        /* Mobile responsive design */
+        @media (max-width: 600px) {
+            header {
+                justify-content: center;
+                text-align: center;
+            }
+
+            header h1 {
+                font-size: 22px;
+            }
+
+            nav a {
+                margin: 4px 8px;
+                font-size: 14px;
+            }
+
+            .banner {
+                padding: 75px 15px;
+            }
+
+            .banner h2 {
+                font-size: 29px;
+            }
+
+            .banner p {
+                font-size: 16px;
+            }
+
+            .section-title {
+                font-size: 25px;
+            }
+
+            section {
+                padding: 35px 5%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- College Header -->
+    <header>
+        <h1>🎓 DR.RVR NRI DEEMED TO BE UNVIERSITY</h1>
+        <p>Knowledge | Innovation | Excellence</p>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#departments">Departments</a>
+        <a href="#courses">Courses</a>
+        <a href="#admissions">Admissions</a>
+        <a href="#facilities">Facilities</a>
+        <a href="#events">Events</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <!-- Banner -->
+    <div class="banner" id="home">
+        <h2>Welcome to  DR.RVR NRI DEEMED TO BE UNVIERSITY</h2>
+        <p>Building Bright Futures Through Quality Education</p>
+        <a href="#admissions" class="btn">Apply for Admission</a>
+    </div>
+
+    <!-- About College -->
+    <section id="about">
+        <h2 class="section-title">About Our College</h2>
+        <p class="section-intro">
+             DR.RVR NRI DEEMED TO BE UNVIERSITY is committed to providing quality education,
+            developing practical skills, encouraging innovation, and
+            preparing students for successful careers.
+        </p>
+
+        <div class="stats">
+            <div class="stat-box">
+                <h3>7+</h3>
+                <p>Departments</p>
+            </div>
+            <div class="stat-box">
+                <h3>60+</h3>
+                <p>Faculty Members</p>
+            </div>
+            <div class="stat-box">
+                <h3>2000+</h3>
+                <p>Students</p>
+            </div>
+            <div class="stat-box">
+                <h3>30+</h3>
+                <p>Campus Facilities</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Departments -->
+    <section id="departments" class="light-section">
+        <h2 class="section-title">Our Departments</h2>
+        <p class="section-intro">
+            Explore our academic departments and areas of specialization.
+        </p>
+
+        <div class="card-container">
+            <div class="card">
+                <div class="icon">💻</div>
+                <h3>Computer Science</h3>
+                <p>Programming, software development, and computing.</p>
+            </div>
+
+            <div class="card">
+                <div class="icon">🌐</div>
+                <h3>Information Technology</h3>
+                <p>Networks, databases, web development, and IT systems.</p>
+            </div>
+
+            <div class="card">
+                <div class="icon">🤖</div>
+                <h3>AI and Machine Learning</h3>
+                <p>Artificial intelligence, machine learning, and robotics.</p>
+            </div>
+
+            <div class="card">
+                <div class="icon">📊</div>
+                <h3>Data Science</h3>
+                <p>Data analysis, statistics, and intelligent decision-making.</p>
+            </div>
+
+            <div class="card">
+                <div class="icon">📡</div>
+                <h3>Electronics</h3>
+                <p>Electronic systems, circuits, and communication technology.</p>
+            </div>
+
+            <div class="card">
+                <div class="icon">🏗️</div>
+                <h3>Civil Engineering</h3>
+                <p>Construction, structural design, and infrastructure.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses -->
+    <section id="courses">
+        <h2 class="section-title">Courses Offered</h2>
+        <p class="section-intro">
+            Choose a course that matches your interests and career goals.
+        </p>
+
+        <div class="card-container">
+            <div class="card">
+                <h3>B.Tech</h3>
+                <p>Bachelor of Technology</p>
+                <ul>
+                    <li>CSE</li>
+                    <li>IT</li>
+                    <li>AI and ML</li>
+                    <li>Data Science</li>
+                    <li>ECE</li>
+                    <li>Civil Engineering</li>
+                    <li>Mechanical Engineering</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>M.Tech</h3>
+                <p>Advanced engineering education and specialization.</p>
+            </div>
+
+            <div class="card">
+                <h3>MBA</h3>
+                <p>Management, leadership, and business administration.</p>
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- Admissions -->
+    <section id="admissions">
+        <h2 class="section-title">Admissions Procedure</h2>
+        <p class="section-intro">
+            Follow these general steps to apply for admission.
+            Check the college's official guidelines for actual requirements.
+        </p>
+
+        <div class="card-container">
+            <div class="card step">
+                <h3>Step 1: Choose a Course</h3>
+                <p>Select a course based on your interests and eligibility.</p>
+            </div>
+
+            <div class="card step">
+                <h3>Step 2: Check Eligibility</h3>
+                <p>Review academic qualifications and entrance requirements.</p>
+            </div>
+
+            <div class="card step">
+                <h3>Step 3: Submit Application</h3>
+                <p>Complete the application and submit required documents.</p>
+            </div>
+
+            <div class="card step">
+                <h3>Step 4: Admission Confirmation</h3>
+                <p>Complete verification and fee payment as instructed.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Campus Facilities -->
+    <section id="facilities" class="light-section">
+        <h2 class="section-title">Campus Facilities</h2>
+        <p class="section-intro">
+            Our campus provides facilities to support education,
+            extracurricular activities, and student life.
+        </p>
+
+        <div class="card-container">
+            <div class="card">
+                <div class="icon">📚</div>
+                <h3>Library</h3>
+                <p>Books, journals, and learning resources.</p>
+            </div>
+
+            <div class="card">
+                <div class="icon">🔬</div>
+                <h3>Laboratories</h3>
+                <p>Practical learning through experiments and projects.</p>
+            </div>
+
+            <div class="card">
+                <div class="icon">🏀</div>
+                <h3>Sports</h3>
+                <p>Sports facilities and recreational activities.</p>
+            </div>
+
+            <div class="card">
+                <div class="icon">🚌</div>
+                <h3>Transport</h3>
+                <p>Transport services for eligible students.</p>
+            </div>
+
+            <div class="card">
+                <div class="icon">🏠</div>
+                <h3>Hostel</h3>
+                <p>Accommodation facilities, subject to availability.</p>
+            </div>
+
+            <div class="card">
+                <div class="icon">📶</div>
+                <h3>Wi-Fi Campus</h3>
+                <p>Internet access to support digital learning.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events -->
+    <section id="events">
+        <h2 class="section-title">College Events</h2>
+        <p class="section-intro">
+            Students can develop their talents through academic,
+            technical, cultural, and sports activities.
+        </p>
+
+        <div class="card-container">
+            <div class="card">
+                <h3>💡 Technical Fest</h3>
+                <p>Project exhibitions, coding competitions, and workshops.</p>
+            </div>
+
+            <div class="card">
+                <h3>🎭 Cultural Fest</h3>
+                <p>Music, dance, art, and student performances.</p>
+            </div>
+
+            <div class="card">
+                <h3>🏆 Sports Meet</h3>
+                <p>Sports competitions that encourage teamwork and fitness.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Details -->
+    <section id="contact" class="light-section">
+        <h2 class="section-title">Contact Us</h2>
+        <p class="section-intro">
+            Contact the college office for more information about
+            courses, admissions, and campus facilities.
+        </p>
+
+        <div class="contact-info">
+            <p><strong>College Name:</strong>  DR.RVR NRI DEEMED TO BE UNVIERSITY</p>
+            <p><strong>Address:</strong> Vijaywada Road, Agripalli mandel,Andhra Pradesh, India</p>
+            <p><strong>Email:</strong> admissions@example.com</p>
+            <p><strong>Phone:</strong> +91 98765 43210</p>
+            <p><strong>Office Hours:</strong> Monday to Saturday</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026  DR.RVR NRI DEEMED TO BE UNVIERSITY.
+       
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,661 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopEase - Online Shopping</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            color: #252525;
+        }
+
+        /* Top announcement */
+        .top-bar {
+            background-color: #14213d;
+            color: white;
+            text-align: center;
+            padding: 9px;
+            font-size: 14px;
+        }
+
+        /* Shopping navigation */
+        header {
+            background-color: white;
+            padding: 18px 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+            box-shadow: 0 2px 8px #ddd;
+        }
+
+        .logo {
+            color: #e85d04;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .search-box {
+            flex: 1;
+            max-width: 450px;
+            display: flex;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #ccc;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+        }
+
+        .search-box button {
+            background-color: #e85d04;
+            color: white;
+            border: none;
+            padding: 11px 18px;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+
+        .header-links a {
+            color: #222;
+            text-decoration: none;
+            margin-left: 15px;
+            font-weight: bold;
+        }
+
+        .header-links a:hover {
+            color: #e85d04;
+        }
+
+        /* Category navigation */
+        .categories {
+            background-color: #243b55;
+            padding: 14px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .categories a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .categories a:hover {
+            color: #ffd166;
+        }
+
+        /* Promotional banner */
+        .banner {
+            margin: 25px auto;
+            width: 92%;
+            min-height: 300px;
+            padding: 55px 7%;
+            border-radius: 15px;
+            color: white;
+            display: flex;
+            align-items: center;
+            background:
+                linear-gradient(90deg,
+                rgba(20, 33, 61, 0.95),
+                rgba(20, 33, 61, 0.3)),
+                url("https://images.unsplash.com/photo-1607082349566-187342175e2f?auto=format&fit=crop&w=1600&q=80");
+            background-position: center;
+            background-size: cover;
+        }
+
+        .banner-content {
+            max-width: 500px;
+        }
+
+        .banner h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .banner p {
+            font-size: 18px;
+            margin-bottom: 22px;
+        }
+
+        .shop-button {
+            display: inline-block;
+            background-color: #ffd166;
+            color: #14213d;
+            padding: 12px 24px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .shop-button:hover {
+            background-color: white;
+        }
+
+        /* General section */
+        .section {
+            padding: 25px 5%;
+        }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 22px;
+        }
+
+        .section-heading h2 {
+            font-size: 28px;
+            color: #14213d;
+        }
+
+        .section-heading p {
+            color: #666;
+        }
+
+        /* Product grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(220px, 1fr));
+            gap: 22px;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 220px;
+            object-fit: contain;
+            background-color: #f9fafc;
+            padding: 12px;
+        }
+
+        .discount {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background-color: #e63946;
+            color: white;
+            padding: 5px 9px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .product-info {
+            padding: 17px;
+        }
+
+        .category-label {
+            color: #e85d04;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .product-info h3 {
+            margin: 8px 0;
+            font-size: 18px;
+        }
+
+        .description {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.5;
+            min-height: 40px;
+        }
+
+        .rating {
+            color: #f4a300;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+
+        .rating span {
+            color: #555;
+        }
+
+        .price {
+            font-size: 22px;
+            color: #14213d;
+            font-weight: bold;
+        }
+
+        .old-price {
+            color: #888;
+            text-decoration: line-through;
+            font-size: 14px;
+            margin-left: 7px;
+            font-weight: normal;
+        }
+
+        .add-button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            background-color: #14213d;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 6px;
+            border: none;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .add-button:hover {
+            background-color: #e85d04;
+        }
+
+        /* Promotional strip */
+        .offer-strip {
+            margin: 35px 5%;
+            background: linear-gradient(120deg, #e85d04, #f48c06);
+            color: white;
+            padding: 35px 20px;
+            text-align: center;
+            border-radius: 12px;
+        }
+
+        .offer-strip h2 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .offer-strip p {
+            margin-bottom: 18px;
+        }
+
+        .offer-strip a {
+            display: inline-block;
+            background-color: white;
+            color: #d94d00;
+            text-decoration: none;
+            padding: 11px 22px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        /* Benefits */
+        .benefits {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 30px 5%;
+            background-color: white;
+            text-align: center;
+        }
+
+        .benefit {
+            padding: 15px;
+        }
+
+        .benefit .icon {
+            font-size: 35px;
+            margin-bottom: 10px;
+        }
+
+        .benefit h3 {
+            color: #14213d;
+            margin-bottom: 5px;
+        }
+
+        .benefit p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #14213d;
+            color: white;
+            padding: 35px 5%;
+            text-align: center;
+        }
+
+        footer p {
+            margin: 8px;
+            color: #d8dfeb;
+        }
+
+        footer a {
+            color: #ffd166;
+            text-decoration: none;
+        }
+
+        /* Mobile responsive design */
+        @media (max-width: 600px) {
+            header {
+                justify-content: center;
+                text-align: center;
+            }
+
+            .logo {
+                width: 100%;
+            }
+
+            .search-box {
+                width: 100%;
+                flex: auto;
+            }
+
+            .header-links a {
+                margin: 0 7px;
+                font-size: 14px;
+            }
+
+            .categories {
+                gap: 15px;
+            }
+
+            .banner {
+                min-height: 260px;
+                padding: 35px 7%;
+            }
+
+            .banner h1 {
+                font-size: 30px;
+            }
+
+            .banner p {
+                font-size: 15px;
+            }
+
+            .section-heading h2 {
+                font-size: 24px;
+            }
+
+            .product-grid {
+                grid-template-columns:
+                    repeat(auto-fit, minmax(150px, 1fr));
+                gap: 12px;
+            }
+
+            .product-image {
+                height: 160px;
+            }
+
+            .product-info {
+                padding: 12px;
+            }
+
+            .product-info h3 {
+                font-size: 16px;
+            }
+
+            .price {
+                font-size: 18px;
+            }
+
+            .offer-strip h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Top Announcement -->
+    <div class="top-bar">
+        🎉 Mega Sale! Get up to 50% OFF on selected products
+    </div>
+
+    <!-- Shopping Header -->
+    <header>
+        <div class="logo">ShopEase 🛍️</div>
+
+        <form class="search-box" action="#products" method="get">
+            <input type="search" name="q"
+                   placeholder="Search products...">
+            <button type="submit">Search</button>
+        </form>
+
+        <div class="header-links">
+            <a href="#home">Home</a>
+            <a href="#products">Products</a>
+            <a href="#footer">Contact</a>
+            <a href="#products">🛒 Cart</a>
+        </div>
+    </header>
+
+    <!-- Category Navigation -->
+    <nav class="categories">
+        <a href="#electronics">Electronics</a>
+        <a href="#fashion">Fashion</a>
+        <a href="#home-products">Home</a>
+        <a href="#accessories">Accessories</a>
+        <a href="#products">All Products</a>
+    </nav>
+
+    <!-- Main Banner -->
+    <section class="banner" id="home">
+        <div class="banner-content">
+            <h1>Big Savings, Better Shopping!</h1>
+            <p>
+                Discover the latest products, exciting discounts,
+                and everyday essentials at amazing prices.
+            </p>
+            <a href="#products" class="shop-button">
+                Shop Now →
+            </a>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section class="section" id="products">
+        <div class="section-heading">
+            <h2>Featured Products</h2>
+            <p>Great products. Great prices.</p>
+        </div>
+
+        <div class="product-grid">
+
+            <!-- Product 1 -->
+            <article class="product-card" id="electronics">
+                <span class="discount">30% OFF</span>
+                <img class="product-image"
+                     src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=80"
+                     alt="Wireless headphones">
+
+                <div class="product-info">
+                    <span class="category-label">Electronics</span>
+                    <h3>Wireless Headphones</h3>
+                    <p class="description">
+                        Enjoy clear sound and comfortable wireless listening.
+                    </p>
+                    <div class="rating">★★★★★ <span>(4.5)</span></div>
+                    <div class="price">
+                        ₹1,399 <span class="old-price">₹1,999</span>
+                    </div>
+                    <a href="#footer" class="add-button">Add to Cart</a>
+                </div>
+            </article>
+
+            <!-- Product 2 -->
+            <article class="product-card" id="fashion">
+                <span class="discount">25% OFF</span>
+                <img class="product-image"
+                     src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80"
+                     alt="Classic wristwatch">
+
+                <div class="product-info">
+                    <span class="category-label">Accessories</span>
+                    <h3>Classic Wristwatch</h3>
+                    <p class="description">
+                        A stylish everyday watch with a modern design.
+                    </p>
+                    <div class="rating">★★★★☆ <span>(4.2)</span></div>
+                    <div class="price">
+                        ₹1,499 <span class="old-price">₹1,999</span>
+                    </div>
+                    <a href="#footer" class="add-button">Add to Cart</a>
+                </div>
+            </article>
+
+            <!-- Product 3 -->
+            <article class="product-card">
+                <span class="discount">20% OFF</span>
+                <img class="product-image"
+                     src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&q=80"
+                     alt="Red sports shoes">
+
+                <div class="product-info">
+                    <span class="category-label">Fashion</span>
+                    <h3>Sports Shoes</h3>
+                    <p class="description">
+                        Lightweight shoes for walking and daily activities.
+                    </p>
+                    <div class="rating">★★★★★ <span>(4.7)</span></div>
+                    <div class="price">
+                        ₹2,399 <span class="old-price">₹2,999</span>
+                    </div>
+                    <a href="#footer" class="add-button">Add to Cart</a>
+                </div>
+            </article>
+
+            <!-- Product 4 -->
+            <article class="product-card" id="home-products">
+                <span class="discount">15% OFF</span>
+                <img class="product-image"
+                     src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=500&q=80"
+                     alt="Digital camera">
+
+                <div class="product-info">
+                    <span class="category-label">Electronics</span>
+                    <h3>Digital Camera</h3>
+                    <p class="description">
+                        Capture special moments with a compact camera.
+                    </p>
+                    <div class="rating">★★★★☆ <span>(4.3)</span></div>
+                    <div class="price">
+                        ₹8,499 <span class="old-price">₹9,999</span>
+                    </div>
+                    <a href="#footer" class="add-button">Add to Cart</a>
+                </div>
+            </article>
+
+            <!-- Product 5 -->
+            <article class="product-card" id="accessories">
+                <span class="discount">35% OFF</span>
+                <img class="product-image"
+                     src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=500&q=80"
+                     alt="Fashion handbag">
+
+                <div class="product-info">
+                    <span class="category-label">Fashion</span>
+                    <h3>Designer Handbag</h3>
+                    <p class="description">
+                        An elegant bag for daily use and special occasions.
+                    </p>
+                    <div class="rating">★★★★★ <span>(4.6)</span></div>
+                    <div class="price">
+                        ₹1,949 <span class="old-price">₹2,999</span>
+                    </div>
+                    <a href="#footer" class="add-button">Add to Cart</a>
+                </div>
+            </article>
+
+            <!-- Product 6 -->
+            <article class="product-card">
+                <span class="discount">10% OFF</span>
+                <img class="product-image"
+                     src="https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=500&q=80"
+                     alt="Modern chair">
+
+                <div class="product-info">
+                    <span class="category-label">Home</span>
+                    <h3>Modern Chair</h3>
+                    <p class="description">
+                        A simple and comfortable chair for your workspace.
+                    </p>
+                    <div class="rating">★★★★☆ <span>(4.1)</span></div>
+                    <div class="price">
+                        ₹3,599 <span class="old-price">₹3,999</span>
+                    </div>
+                    <a href="#footer" class="add-button">Add to Cart</a>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- Promotional Offer -->
+    <section class="offer-strip">
+        <h2>Special Weekend Offer!</h2>
+        <p>Discover amazing deals on selected products.</p>
+        <a href="#products">Explore Offers</a>
+    </section>
+
+    <!-- Shopping Benefits -->
+    <section class="benefits">
+        <div class="benefit">
+            <div class="icon">🚚</div>
+            <h3>Fast Delivery</h3>
+            <p>Convenient delivery options for your orders.</p>
+        </div>
+
+        <div class="benefit">
+            <div class="icon">🔒</div>
+            <h3>Secure Shopping</h3>
+            <p>Shop with care and protect your information.</p>
+        </div>
+
+        <div class="benefit">
+            <div class="icon">💳</div>
+            <h3>Easy Payments</h3>
+            <p>Explore convenient payment options.</p>
+        </div>
+
+        <div class="benefit">
+            <div class="icon">🎧</div>
+            <h3>Customer Support</h3>
+            <p>We're here to help with your shopping questions.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <h2>ShopEase</h2>
+        <p>Your destination for convenient online shopping.</p>
+        <p>Email: support@example.com</p>
+        <p>© 2026 ShopEase. All rights reserved.</p>
+        <p><a href="#home">Back to Top ↑</a></p>
+    </footer>
+
+</body>
+</html>
